@@ -7,14 +7,12 @@
 
 #include <iostream>
 #include <cstring>
-#include <string>
 #include <stdio.h>
 
-using namespace std;
 
 #include "TestCreatorVistaAPX8000.h"
 
-string str1("<Step Text=\"%s\">\n"); // @suppress("Type cannot be resolved")
+string str1("<Step Text=\"%s\">\n");
 string str2("<Action Id=\"LOADCODEPLUG\" ControllerId=\"%s\">\n");
 string str3("<Property Id=\"LOADCODEPLUG\" Value=\"%s\">\n");
 string str4("<Property Id=\"LOADTYPE\" Value=\"{PBA}\" />\n");

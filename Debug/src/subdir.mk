@@ -4,6 +4,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/ActionSendXCMPMessageRequest.cpp \
+../src/ActionSendXCMPMessageRequest_test.cpp \
+../src/ActionZoneAndChannelChange.cpp \
+../src/ActionZoneAndChannelChange_test.cpp \
 ../src/LoadCodePlug.cpp \
 ../src/LoadCodePlug_test.cpp \
 ../src/RAMBufferDriver.cpp \
@@ -15,6 +19,10 @@ CPP_SRCS += \
 ../src/iTestDriver.cpp 
 
 OBJS += \
+./src/ActionSendXCMPMessageRequest.o \
+./src/ActionSendXCMPMessageRequest_test.o \
+./src/ActionZoneAndChannelChange.o \
+./src/ActionZoneAndChannelChange_test.o \
 ./src/LoadCodePlug.o \
 ./src/LoadCodePlug_test.o \
 ./src/RAMBufferDriver.o \
@@ -26,6 +34,10 @@ OBJS += \
 ./src/iTestDriver.o 
 
 CPP_DEPS += \
+./src/ActionSendXCMPMessageRequest.d \
+./src/ActionSendXCMPMessageRequest_test.d \
+./src/ActionZoneAndChannelChange.d \
+./src/ActionZoneAndChannelChange_test.d \
 ./src/LoadCodePlug.d \
 ./src/LoadCodePlug_test.d \
 ./src/RAMBufferDriver.d \

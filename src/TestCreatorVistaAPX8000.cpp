@@ -23,6 +23,8 @@ string str6("</Action>\n");
 string str7("</Step>\n");
 
 
+
+
 TestCreator_VistaAPX8000::TestCreator_VistaAPX8000() {
 	// TODO Auto-generated constructor stub
 
@@ -48,6 +50,12 @@ string &TestCreator_VistaAPX8000::LoadCodeplug_creator(LoadCodePlug *lcp)
 	return m_ret;
 
 }
+
+string &TestCreator_VistaAPX8000::ActionZoneAndChannelChange_creator(ActionZoneAndChannelChange &azc)
+{
+	return m_ret;
+}
+
 const string spaces("                              "); // 30 spaces - enough for 15 levels
 
 int TestCreator_VistaAPX8000::findoccurrence(const char *str, int number)

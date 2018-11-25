@@ -12,6 +12,7 @@ using namespace std;
 #include <string>
 
 class LoadCodePlug;
+class ActionZoneAndChannelChange;
 
 class iTestCreator {
 public:
@@ -19,6 +20,8 @@ public:
 	virtual ~iTestCreator();
 
 	virtual string &LoadCodeplug_creator(LoadCodePlug *lcp) = 0;
+	virtual string &ActionZoneAndChannelChange_creator(ActionZoneAndChannelChange &azc) = 0;
+
 };
 
 #endif /* ITESTCREATOR_H_ */

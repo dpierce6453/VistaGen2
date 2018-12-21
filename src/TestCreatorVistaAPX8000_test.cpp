@@ -52,7 +52,7 @@ const string testString3 = "\
 <DataParentId>41234</DataParentId>\n\
 </TestCase>\n";
 
-TEST(TestCreatorVistaAPX8000Tests, OpenTest)
+TEST(TestCreatorVistaAPX8000Tests, LoadCodeplugTest)
 {
 	iTestCreator *tc = new TestCreator_VistaAPX8000();
 
@@ -62,7 +62,7 @@ TEST(TestCreatorVistaAPX8000Tests, OpenTest)
 	lcp->setRadioId("Radio1");
 
 	string vCP = tc->LoadCodeplug_creator(lcp);
-	STRCMP_EQUAL(vCP.c_str(), testString1.c_str());
+	STRCMP_EQUAL(vCP.c_str(), testString2.c_str());
 
 	delete lcp;
 	delete tc;

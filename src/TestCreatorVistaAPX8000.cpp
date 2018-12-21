@@ -36,6 +36,7 @@ TestCreator_VistaAPX8000::~TestCreator_VistaAPX8000() {
 string &TestCreator_VistaAPX8000::LoadCodeplug_creator(LoadCodePlug *lcp)
 {
 	int pos;
+	m_ret.clear();
 	m_ret.assign(str1 + str2 + str3 + str4 + str5 + str6 + str7);
 	pos = findoccurrence("%s",1);
 	m_ret.replace(pos,2,lcp->getTitle());
@@ -44,7 +45,7 @@ string &TestCreator_VistaAPX8000::LoadCodeplug_creator(LoadCodePlug *lcp)
 	pos = findoccurrence("%s",1);
 	m_ret.replace(pos,2,lcp->getFileName());
 
-	setlevel(3);
+	//setlevel(3);
 
 	return m_ret;
 

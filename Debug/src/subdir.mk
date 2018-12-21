@@ -16,6 +16,7 @@ CPP_SRCS += \
 ../src/TestCase_test.cpp \
 ../src/TestCreatorVistaAPX8000.cpp \
 ../src/TestCreatorVistaAPX8000_test.cpp \
+../src/TestStrings.cpp \
 ../src/Vista\ XML\ Gen.cpp \
 ../src/iTestCreator.cpp \
 ../src/iTestDriver.cpp 
@@ -33,6 +34,7 @@ OBJS += \
 ./src/TestCase_test.o \
 ./src/TestCreatorVistaAPX8000.o \
 ./src/TestCreatorVistaAPX8000_test.o \
+./src/TestStrings.o \
 ./src/Vista\ XML\ Gen.o \
 ./src/iTestCreator.o \
 ./src/iTestDriver.o 
@@ -50,6 +52,7 @@ CPP_DEPS += \
 ./src/TestCase_test.d \
 ./src/TestCreatorVistaAPX8000.d \
 ./src/TestCreatorVistaAPX8000_test.d \
+./src/TestStrings.d \
 ./src/Vista\ XML\ Gen.d \
 ./src/iTestCreator.d \
 ./src/iTestDriver.d 

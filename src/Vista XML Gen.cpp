@@ -32,14 +32,8 @@ TEST_GROUP(End2EndTests)
 	}
 };
 
-const char  testString1[] = "\
-      <Step Text=\"Load Radio 1 codeplug\">\n\
-        <Action Id=\"LOADCODEPLUG\" ControllerId=\"Radio1\">\n\
-          <Property Id=\"LOADCODEPLUG\" Value=\"AMP_IPS_TC1_TC2_SU1.pba\">\n\
-            <Property Id=\"LOADTYPE\" Value=\"{PBA}\" />\n\
-          </Property>\n\
-        </Action>\n\
-      </Step>\n";
+extern string testString1;
+
 TEST(End2EndTests, LoadCodePlug)
 {
 	// create the test creator
@@ -56,12 +50,13 @@ TEST(End2EndTests, LoadCodePlug)
 
 	// Create the test and write it
 	string vCP = ptc->LoadCodeplug_creator(lcp);
-	ptd->write(fd, (void *)vCP.c_str(), strlen(vCP.c_str()));
+	ptd->write(fd, (void *)vCP.c_str(), vCP.length());
 
 	// Check the answer
-	char *buf = new char[sizeof(testString1)];
-	ptd->read(fd, buf, sizeof(testString1));
-	STRCMP_EQUAL((const char *)buf, (const char *)testString1);
+	char *buf = new char[testString1.length()];
+	ptd->read(fd, buf, testString1.length());
+
+	CHECK_TRUE(strncmp((const char *)buf, (const char *)testString1.c_str(), testString1.length()) == 0);
 
 	delete [] buf;
 	delete lcp;

@@ -10,6 +10,7 @@
 
 #include "iTestCreator.h"
 #include "LoadCodePlug.h"
+#include "TestCase.h"
 #include "ActionZoneAndChannelChange.h"
 
 class TestCreator_VistaAPX8000: public iTestCreator {
@@ -19,6 +20,7 @@ public:
 
 	virtual string &LoadCodeplug_creator(LoadCodePlug *lcp);
 	virtual string &ActionZoneAndChannelChange_creator(ActionZoneAndChannelChange &azc);
+	virtual string &TestCase_creator(TestCase &tc);
 
 	void setlevel(int level);
 

@@ -24,5 +24,15 @@ TEST_GROUP(TestCaseTests)
 
 TEST(TestCaseTests, FirstTest)
 {
-	CHECK_TRUE(1==1);
+	string DataProject = "Astro";
+	string DataParentId = "41234";
+
+	TestCase *pTC = new TestCase();
+	pTC->setDataProject(DataProject);
+	pTC->setDataParentId(41234);
+
+	STRCMP_EQUAL(DataProject.c_str(), pTC->getDataProject().c_str());
+	STRCMP_EQUAL(DataParentId.c_str(), pTC->getDataParentId().c_str());
+
+	delete pTC;
 }

@@ -26,9 +26,9 @@ public:
 	void setRadioId(const char *str) {m_strRadioId.assign(str);};
 	void setFileName(const char *str) {m_strFilename.assign(str);};
 
-	const char *getTitle(void) {return m_strTitle.c_str();} ;
-	const char *getRadioId( void ) {return m_strRadioId.c_str();} ;
-	const char *getFileName( void ) {return m_strFilename.c_str();} ;
+	string getTitle(void) {return m_strTitle;} ;
+	string getRadioId( void ) {return m_strRadioId;} ;
+	string getFileName( void ) {return m_strFilename;} ;
 
 private:
 	string m_strTitle;

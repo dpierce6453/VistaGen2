@@ -46,6 +46,12 @@ const string testString2 = "\
 </Action>\n\
 </Step>\n";
 
+const string testString3 = "\
+<TestCase>\n\
+<DataProject>Astro</DataProject>\n\
+<DataParentId>41234</DataParentId>\n\
+</TestCase>\n";
+
 TEST(TestCreatorVistaAPX8000Tests, OpenTest)
 {
 	iTestCreator *tc = new TestCreator_VistaAPX8000();
@@ -63,6 +69,22 @@ TEST(TestCreatorVistaAPX8000Tests, OpenTest)
 
 }
 
+TEST(TestCreatorVistaAPX8000Tests, TestCaseTest)
+{
+	iTestCreator *tc = new TestCreator_VistaAPX8000();
+
+	string DataProject = "Astro";
+	string DataParentId = "41234";
+	TestCase *pTC = new TestCase();
+	pTC->setDataProject(DataProject);
+	pTC->setDataParentId(41234);
+
+	string strTC = tc->TestCase_creator(*pTC);
+	STRCMP_EQUAL(strTC.c_str(), testString3.c_str());
+
+	delete pTC;
+	delete tc;
+}
 TEST(TestCreatorVistaAPX8000Tests, setLevelTest)
 {
 	TestCreator_VistaAPX8000 *tc = new TestCreator_VistaAPX8000();

@@ -13,6 +13,7 @@ using namespace std;
 
 class LoadCodePlug;
 class ActionZoneAndChannelChange;
+class TestCase;
 
 class iTestCreator {
 public:
@@ -21,6 +22,8 @@ public:
 
 	virtual string &LoadCodeplug_creator(LoadCodePlug *lcp) = 0;
 	virtual string &ActionZoneAndChannelChange_creator(ActionZoneAndChannelChange &azc) = 0;
+	virtual string &TestCase_creator(TestCase &tc) = 0;
+
 
 };
 

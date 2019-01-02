@@ -25,11 +25,11 @@ public:
 	// In the case of XML it will create the buffer and or open the file
 	virtual int open(const char *path, int flags) = 0;
 
-	virtual void write(int d, void *buf, size_t nbytes) = 0;
+	virtual size_t write(int d, void *buf, size_t nbytes) = 0;
 
 	virtual void lseek(int d, off_t offset, int base) = 0;
 
-	virtual void read(int d, void *buf, size_t nbytes) = 0;
+	virtual size_t read(int d, void *buf, size_t nbytes) = 0;
 
 };
 #endif /* ITESTDRIVER_H_ */

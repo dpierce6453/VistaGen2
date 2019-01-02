@@ -31,3 +31,6 @@
 *.out
 *.app
 
+#prefences and settings
+*.prefs
+

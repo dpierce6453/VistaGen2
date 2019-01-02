@@ -32,7 +32,7 @@ TEST_GROUP(End2EndTests)
 	}
 };
 
-extern string testString1;
+extern const string testString1;
 
 TEST(End2EndTests, LoadCodePlug)
 {

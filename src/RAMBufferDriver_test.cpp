@@ -5,11 +5,15 @@
  *      Author: dan
  */
 
+using namespace std;
+
+#include <cstring>
 
 #include <CppUTest/TestHarness.h>
 
 #include "RAMBufferDriver.h"
 
+extern const string testString6;
 
 TEST_GROUP(RAMBufferDriverTests)
 {
@@ -24,28 +28,43 @@ TEST_GROUP(RAMBufferDriverTests)
 	}
 };
 
-const char  testString1[] = "\
-      <Step Text=\"Load Radio 1 codeplug\">\n\
-        <Action Id=\"LOADCODEPLUG\" ControllerId=\"Radio1\">\n\
-          <Property Id=\"LOADCODEPLUG\" Value=\"AMP_IPS_TC1_TC2_SU1.pba\">\n\
-            <Property Id=\"LOADTYPE\" Value=\"{PBA}\" />\n\
-          </Property>\n\
-        </Action>\n\
-      </Step>\n";
+
 
 TEST(RAMBufferDriverTests, OpenTest)
 {
 	int fd;
-	char *buf = new char[sizeof(testString1)];
+	char *buf = new char[testString6.length()];
 
 	RAMBufferDriver *rb = new RAMBufferDriver();
 	fd = rb->open("MyRamBuffer", O_RDWR | O_CREAT);
 
-	rb->write(fd, (void *)testString1, sizeof(testString1));
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
 
-	rb->read(fd, buf, sizeof(testString1));
+	rb->read(fd, buf, testString6.length());
 
-	STRCMP_EQUAL((const char *)buf, (const char *)testString1);
+	CHECK_TRUE(strncmp((const char *)buf, (const char *)testString6.c_str(), testString6.length()) == 0);
+
+	rb->close(fd);
+	delete rb;
+	delete [] buf;
+
+}
+
+TEST(RAMBufferDriverTests, TwoStringTest)
+{
+	int fd;
+	char *buf = new char[testString6.length() * 2];
+
+	RAMBufferDriver *rb = new RAMBufferDriver();
+	fd = rb->open("MyRamBuffer", O_RDWR | O_CREAT);
+
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+
+	rb->read(fd, buf, (testString6.length() * 2));
+	string check = testString6 + testString6;
+
+	CHECK_TRUE(strncmp((const char *)buf, (const char *)check.c_str(), check.length()) == 0);
 
 	rb->close(fd);
 	delete rb;

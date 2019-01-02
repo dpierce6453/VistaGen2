@@ -28,7 +28,8 @@ TEST_GROUP(TestCreatorVistaAPX8000Tests)
 	}
 };
 
-const string testString1 = "\
+
+const string testString4 = "\
       <Step Text=\"Load Radio 1 codeplug\">\n\
         <Action Id=\"LOADCODEPLUG\" ControllerId=\"Radio1\">\n\
           <Property Id=\"LOADCODEPLUG\" Value=\"AMP_IPS_TC1_TC2_SU1.pba\">\n\
@@ -37,20 +38,9 @@ const string testString1 = "\
         </Action>\n\
       </Step>\n";
 
-const string testString2 = "\
-<Step Text=\"Load Radio 1 codeplug\">\n\
-<Action Id=\"LOADCODEPLUG\" ControllerId=\"Radio1\">\n\
-<Property Id=\"LOADCODEPLUG\" Value=\"AMP_IPS_TC1_TC2_SU1.pba\">\n\
-<Property Id=\"LOADTYPE\" Value=\"{PBA}\" />\n\
-</Property>\n\
-</Action>\n\
-</Step>\n";
 
-const string testString3 = "\
-<TestCase>\n\
-<DataProject>Astro</DataProject>\n\
-<DataParentId>41234</DataParentId>\n\
-</TestCase>\n";
+extern const string testString1;
+extern const string testString3;
 
 TEST(TestCreatorVistaAPX8000Tests, LoadCodeplugTest)
 {
@@ -62,7 +52,7 @@ TEST(TestCreatorVistaAPX8000Tests, LoadCodeplugTest)
 	lcp->setRadioId("Radio1");
 
 	string vCP = tc->LoadCodeplug_creator(lcp);
-	STRCMP_EQUAL(vCP.c_str(), testString2.c_str());
+	STRCMP_EQUAL(vCP.c_str(), testString1.c_str());
 
 	delete lcp;
 	delete tc;
@@ -89,9 +79,9 @@ TEST(TestCreatorVistaAPX8000Tests, setLevelTest)
 {
 	TestCreator_VistaAPX8000 *tc = new TestCreator_VistaAPX8000();
 
-	tc->setString(testString2);
+	tc->setString(testString1);
 	tc->setlevel(3);
-	STRCMP_EQUAL(tc->getString().c_str(), testString1.c_str());
+	STRCMP_EQUAL(tc->getString().c_str(), testString4.c_str());
 
 	delete tc;
 }

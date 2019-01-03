@@ -39,6 +39,7 @@ TEST(RAMBufferDriverTests, OpenTest)
 	fd = rb->open("MyRamBuffer", O_RDWR | O_CREAT);
 
 	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+	rb->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
 
 	rb->read(fd, buf, testString6.length());
 
@@ -61,6 +62,7 @@ TEST(RAMBufferDriverTests, TwoStringTest)
 	rb->write(fd, (void *)testString6.c_str(), testString6.length());
 	rb->write(fd, (void *)testString6.c_str(), testString6.length());
 
+	rb->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
 	rb->read(fd, buf, (testString6.length() * 2));
 	string check = testString6 + testString6;
 
@@ -100,6 +102,8 @@ TEST(RAMBufferDriverTests, FullBufferTest)
 	CHECK_TRUE(numbytes == 0);
 
 	// Now let's read it all back
+	rb->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
+
 	for(unsigned int i=0; i < loops; i++)
 	{
 		memset(buf, '.', fullbufferteststring.length());
@@ -122,3 +126,47 @@ TEST(RAMBufferDriverTests, FullBufferTest)
 	delete [] buf;
 
 }
+TEST(RAMBufferDriverTests, lseekTest)
+{
+	int fd;
+	size_t numberofbytes;
+	char *buf = new char[testString6.length() * 2];
+
+	RAMBufferDriver *rb = new RAMBufferDriver();
+	fd = rb->open("MyRamBuffer", O_RDWR | O_CREAT);
+
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+	rb->lseek(fd, 100, SEEK_SET);  //seek to at point 10 characters offset into the file
+	string check = testString6 + testString6;
+
+	numberofbytes = rb->read(fd, buf, testString6.length());
+
+	CHECK_TRUE(strncmp((const char *)buf, (const char *)(check.c_str()+100), numberofbytes) == 0);
+
+	rb->close(fd);
+	delete rb;
+	delete [] buf;
+}
+
+TEST(RAMBufferDriverTests, lseekTestEndOfFile)
+{
+	int fd;
+	size_t numberofbytes;
+	char *buf = new char[testString6.length()];
+
+	RAMBufferDriver *rb = new RAMBufferDriver();
+	fd = rb->open("MyRamBuffer", O_RDWR | O_CREAT);
+
+	rb->write(fd, (void *)testString6.c_str(), testString6.length());
+	rb->lseek(fd, 10, SEEK_SET);  //seek to at point 100 characters offset into the file
+
+	numberofbytes = rb->read(fd, buf, testString6.length());
+
+	CHECK_TRUE(strncmp((const char *)buf, (const char *)(testString6.c_str()+10), numberofbytes) == 0);
+
+	rb->close(fd);
+	delete rb;
+	delete [] buf;
+}
+

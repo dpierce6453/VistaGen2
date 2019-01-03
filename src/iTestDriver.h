@@ -9,7 +9,6 @@
 #define ITESTDRIVER_H_
 
 #include <fcntl.h>
-#include <unistd.h>
 #include <sys/types.h>
 
 class iTestDriver {
@@ -27,7 +26,7 @@ public:
 
 	virtual size_t write(int d, void *buf, size_t nbytes) = 0;
 
-	virtual void lseek(int d, off_t offset, int base) = 0;
+	virtual off_t lseek(int d, off_t offset, int base) = 0;
 
 	virtual size_t read(int d, void *buf, size_t nbytes) = 0;
 

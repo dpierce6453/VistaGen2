@@ -54,6 +54,7 @@ TEST(End2EndTests, LoadCodePlug)
 
 	// Check the answer
 	char *buf = new char[testString1.length()];
+	ptd->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
 	ptd->read(fd, buf, testString1.length());
 
 	CHECK_TRUE(strncmp((const char *)buf, (const char *)testString1.c_str(), testString1.length()) == 0);

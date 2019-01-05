@@ -10,7 +10,6 @@ using namespace std;
 #include <iostream>
 
 #include <CppUTest/TestHarness.h>
-#include <CppUTest/CommandLineTestRunner.h>
 
 #include "TestCreatorVistaAPX8000.h"
 

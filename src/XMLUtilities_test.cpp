@@ -13,6 +13,7 @@ using namespace std;
 
 
 #include "XMLUtilities.h"
+#include "RAMBufferDriver.h"
 
 TEST_GROUP(XMLUtilitiesTest)
 {
@@ -34,6 +35,22 @@ TEST(XMLUtilitiesTest, FirstTest)
 {
 	string test = testString3;
 	test.insert(test.find_last_of('<'), testString1);
-	cout << test;
+	// Now write this to a RAMBuffer
+	iTestDriver *pitd = new RAMBufferDriver();
+
+	pitd->open("MyRamBuffer", O_RDWR | O_CREAT);
+
+	pitd->write(1, (void *)test.c_str(), test.length());
+	//pitd->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
+	//pitd->read(fd, buf, test.length());
+
+
+	XMLUtilities *xmlu = new XMLUtilities(*pitd);
+
+	size_t pos = xmlu->setindentlocation(1);
+
 	CHECK_TRUE(1==1);
+	delete pitd;
+	delete xmlu;
+
 }

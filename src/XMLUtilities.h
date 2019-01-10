@@ -10,19 +10,19 @@
 #ifndef XMLUTILITIES_H_
 #define XMLUTILITIES_H_
 
-#include "iTestCreator.h"
+#include "iTestDriver.h"
 
 class XMLUtilities
 {
 public:
 
-	XMLUtilities(iTestCreator &itc);
+	XMLUtilities(iTestDriver &itd);
 	virtual ~XMLUtilities();
 
-	int setindentlocation(int indentlevel);
+	size_t setindentlocation(int indentlevel);
 
 private:
-	iTestCreator &m_itc;
+	iTestDriver &m_itd;
 };
 
 #endif /* XMLUTILITIES_H_ */

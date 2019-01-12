@@ -29,7 +29,20 @@ TEST_GROUP(RAMBufferDriverTests)
 };
 
 
+TEST(RAMBufferDriverTests, OpenTest2)
+{
+	// make sure file has to be open before it is used.
+	RAMBuffer *rb = new RAMBuffer();
 
+	CHECK_TRUE(rb->write((void *)testString6.c_str(), testString6.length()) == 0);
+	CHECK_TRUE(rb->lseek(0, SEEK_SET) == -1);  //seek to beginning of file
+	rb->open("MyRamBuffer", O_RDWR | O_CREAT);
+	CHECK_TRUE(rb->write((void *)testString6.c_str(), testString6.length()) == testString6.length());
+	CHECK_TRUE(rb->lseek(0, SEEK_CUR) == (off_t)testString6.length());  //seek to beginning of file
+
+	delete rb;
+
+}
 TEST(RAMBufferDriverTests, OpenTest)
 {
 	char *buf = new char[testString6.length()];

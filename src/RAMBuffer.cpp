@@ -47,6 +47,7 @@ int RAMBuffer::open(const char *path, int flags)
 		m_pchRambuffer = new char[m_nBufferSize];
 		memset(m_pchRambuffer, 0, m_nBufferSize);
 	}
+	m_bOpen = true;
 	return 1;
 }
 
@@ -54,9 +55,16 @@ int RAMBuffer::open(const char *path, int flags)
 size_t RAMBuffer::write(void *buf, size_t nbytes)
 {
 	size_t numberofbytes = nbytes;
-	numberofbytes = setNumberOfBytes(numberofbytes);
-	memcpy(m_pchRambuffer + m_nFileoffset, buf, numberofbytes);
-	m_nFileoffset += numberofbytes;
+	if (m_bOpen)
+	{
+		numberofbytes = setNumberOfBytes(numberofbytes);
+		memcpy(m_pchRambuffer + m_nFileoffset, buf, numberofbytes);
+		m_nFileoffset += numberofbytes;
+	}
+	else
+	{
+		numberofbytes = 0;
+	}
 
 	return numberofbytes;
 }
@@ -64,9 +72,16 @@ size_t RAMBuffer::write(void *buf, size_t nbytes)
 size_t RAMBuffer::read(void *buf, size_t nbytes)
 {
 	size_t numberofbytes = nbytes;
-	numberofbytes = setNumberOfBytes(numberofbytes);
-	memcpy(buf, m_pchRambuffer + m_nFileoffset, numberofbytes);
-	m_nFileoffset+=numberofbytes;
+	if(m_bOpen)
+	{
+		numberofbytes = setNumberOfBytes(numberofbytes);
+		memcpy(buf, m_pchRambuffer + m_nFileoffset, numberofbytes);
+		m_nFileoffset+=numberofbytes;
+	}
+	else
+	{
+		numberofbytes = 0;
+	}
 
 	return numberofbytes;
 }
@@ -74,30 +89,35 @@ off_t RAMBuffer::lseek(off_t offset, int base)
 {
 	off_t ret = -1;
 	off_t relativeoffset;
-	switch (base)
+
+	if (m_bOpen)
 	{
-	case SEEK_SET:
-		relativeoffset = 0;
-		break;
-	case SEEK_CUR:
-		relativeoffset = m_nFileoffset;
-		break;
-	case SEEK_END:
-		relativeoffset = m_nBufferSize;
-		break;
-	default:
-		return ret;  //I don't handle any other cases.
+		switch (base)
+		{
+		case SEEK_SET:
+			relativeoffset = 0;
+			break;
+		case SEEK_CUR:
+			relativeoffset = m_nFileoffset;
+			break;
+		case SEEK_END:
+			relativeoffset = m_nBufferSize;
+			break;
+		default:
+			return ret;  //I don't handle any other cases.
+		}
+
+		if((size_t)(offset + relativeoffset) <= m_nBufferSize)
+		{
+			ret = offset + relativeoffset;
+		}
+
+		if (ret != -1)
+		{
+			m_nFileoffset = ret;
+		}
 	}
 
-	if((size_t)(offset + relativeoffset) <= m_nBufferSize)
-	{
-		ret = offset + relativeoffset;
-	}
-
-	if (ret != -1)
-	{
-		m_nFileoffset = ret;
-	}
 	return ret;
 
 }
@@ -129,5 +149,6 @@ bool RAMBuffer::isRequestLargerThanRemainingFileSize(	size_t numberofbytes)
 void RAMBuffer::ResetBuffer() {
 	m_pchRambuffer = 0;
 	m_nFileoffset = 0;
+	m_bOpen = false;
 }
 

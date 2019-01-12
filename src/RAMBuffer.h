@@ -32,6 +32,7 @@ private:
 	char *m_pchRambuffer;
 	size_t m_nBufferSize;
 	off_t m_nFileoffset;   //I believe that off_t is 64 bit signed int.
+	bool m_bOpen;
 
 	void ResetBuffer();
 	bool isRequestLargerThanRemainingFileSize(size_t numberofbytes);

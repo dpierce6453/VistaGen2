@@ -5,28 +5,28 @@
  *      Author: dan
  */
 
-#ifndef RAMBUFFERDRIVER_H_
-#define RAMBUFFERDRIVER_H_
+#ifndef RAMBUFFER_H_
+#define RAMBUFFER_H_
 
 #include "iTestDriver.h"
 
-class RAMBufferDriver: public iTestDriver {
+class RAMBuffer: public iTestDriver {
 public:
 	static const int nDEFAULT_BUFFER_SIZE = 1024;
 
-	RAMBufferDriver();
-	RAMBufferDriver(int Buffersize);
-	virtual ~RAMBufferDriver();
+	RAMBuffer();
+	RAMBuffer(int Buffersize);
+	virtual ~RAMBuffer();
 
-	virtual int close(int d);
+	virtual int close();
 
 	virtual int open(const char *path, int flags);
 
-	virtual size_t write(int d, void *buf, size_t nbytes);
+	virtual size_t write(void *buf, size_t nbytes);
 
-	virtual off_t lseek(int d, off_t offset, int base);
+	virtual off_t lseek(off_t offset, int base);
 
-	virtual size_t read(int d, void *buf, size_t nbytes);
+	virtual size_t read(void *buf, size_t nbytes);
 
 private:
 	char *m_pchRambuffer;
@@ -39,4 +39,4 @@ private:
 	size_t setNumberOfBytes(size_t numberofbytes);
 };
 
-#endif /* RAMBUFFERDRIVER_H_ */
+#endif /* RAMBUFFER_H_ */

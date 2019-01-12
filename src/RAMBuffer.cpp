@@ -5,23 +5,24 @@
  *      Author: dan
  */
 
+#include "RAMBuffer.h"
+
 #include <cstring>
 
-#include "RAMBufferDriver.h"
 
-RAMBufferDriver::RAMBufferDriver()
+RAMBuffer::RAMBuffer()
 {
 	m_nBufferSize = nDEFAULT_BUFFER_SIZE;
 	ResetBuffer();
 }
-RAMBufferDriver::RAMBufferDriver(int Buffersize)
+RAMBuffer::RAMBuffer(int Buffersize)
 {
 	m_nBufferSize = Buffersize;
 	ResetBuffer();
 }
 
 
-RAMBufferDriver::~RAMBufferDriver() {
+RAMBuffer::~RAMBuffer() {
 	if(m_pchRambuffer != 0)
 	{
 		delete [] m_pchRambuffer;
@@ -29,7 +30,7 @@ RAMBufferDriver::~RAMBufferDriver() {
 	}
 }
 
-int RAMBufferDriver::close(int d)
+int RAMBuffer::close( void )
 {
 	if(m_pchRambuffer != 0)
 	{
@@ -39,7 +40,7 @@ int RAMBufferDriver::close(int d)
 	return 0;
 }
 
-int RAMBufferDriver::open(const char *path, int flags)
+int RAMBuffer::open(const char *path, int flags)
 {
 	if(m_pchRambuffer == 0)
 	{
@@ -50,7 +51,7 @@ int RAMBufferDriver::open(const char *path, int flags)
 }
 
 
-size_t RAMBufferDriver::write(int d, void *buf, size_t nbytes)
+size_t RAMBuffer::write(void *buf, size_t nbytes)
 {
 	size_t numberofbytes = nbytes;
 	numberofbytes = setNumberOfBytes(numberofbytes);
@@ -60,7 +61,7 @@ size_t RAMBufferDriver::write(int d, void *buf, size_t nbytes)
 	return numberofbytes;
 }
 
-size_t RAMBufferDriver::read(int d, void *buf, size_t nbytes)
+size_t RAMBuffer::read(void *buf, size_t nbytes)
 {
 	size_t numberofbytes = nbytes;
 	numberofbytes = setNumberOfBytes(numberofbytes);
@@ -69,7 +70,7 @@ size_t RAMBufferDriver::read(int d, void *buf, size_t nbytes)
 
 	return numberofbytes;
 }
-off_t RAMBufferDriver::lseek(int d, off_t offset, int base)
+off_t RAMBuffer::lseek(off_t offset, int base)
 {
 	off_t ret = -1;
 	off_t relativeoffset;
@@ -88,7 +89,7 @@ off_t RAMBufferDriver::lseek(int d, off_t offset, int base)
 		return ret;  //I don't handle any other cases.
 	}
 
-	if((size_t)(offset + relativeoffset) < m_nBufferSize)
+	if((size_t)(offset + relativeoffset) <= m_nBufferSize)
 	{
 		ret = offset + relativeoffset;
 	}
@@ -101,7 +102,7 @@ off_t RAMBufferDriver::lseek(int d, off_t offset, int base)
 
 }
 
-size_t RAMBufferDriver::setNumberOfBytes(size_t numberofbytes)
+size_t RAMBuffer::setNumberOfBytes(size_t numberofbytes)
 {
 	if (isRequestLargerThanRemainingFileSize(numberofbytes))
 	{
@@ -115,17 +116,17 @@ size_t RAMBufferDriver::setNumberOfBytes(size_t numberofbytes)
 	return numberofbytes;
 }
 
-bool RAMBufferDriver::isAtEndOfFile()
+bool RAMBuffer::isAtEndOfFile()
 {
 	return (size_t)m_nFileoffset >= m_nBufferSize;
 }
 
-bool RAMBufferDriver::isRequestLargerThanRemainingFileSize(	size_t numberofbytes)
+bool RAMBuffer::isRequestLargerThanRemainingFileSize(	size_t numberofbytes)
 {
 	return (size_t)m_nFileoffset + numberofbytes > m_nBufferSize;
 }
 
-void RAMBufferDriver::ResetBuffer() {
+void RAMBuffer::ResetBuffer() {
 	m_pchRambuffer = 0;
 	m_nFileoffset = 0;
 }

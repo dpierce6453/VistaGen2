@@ -14,7 +14,7 @@ using namespace std;
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "TestCreatorVistaAPX8000.h"
-#include "RAMBufferDriver.h"
+#include "RAMBuffer.h"
 
 int main(int ac, char** av) {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
@@ -40,8 +40,8 @@ TEST(End2EndTests, LoadCodePlug)
 	iTestCreator *ptc = new TestCreator_VistaAPX8000();
 
 	// create the test driver and open for reading and writing
-	iTestDriver *ptd = new RAMBufferDriver();
-	int fd = ptd->open("MyRamBuffer", O_RDWR | O_CREAT);
+	iTestDriver *ptd = new RAMBuffer();
+	ptd->open("MyRamBuffer", O_RDWR | O_CREAT);
 
 	LoadCodePlug *lcp = new LoadCodePlug();
 	lcp->setTitle("Load Radio 1 codeplug");
@@ -50,12 +50,12 @@ TEST(End2EndTests, LoadCodePlug)
 
 	// Create the test and write it
 	string vCP = ptc->LoadCodeplug_creator(lcp);
-	ptd->write(fd, (void *)vCP.c_str(), vCP.length());
+	ptd->write((void *)vCP.c_str(), vCP.length());
 
 	// Check the answer
 	char *buf = new char[testString1.length()];
-	ptd->lseek(fd, 0, SEEK_SET);  //seek to beginning of file
-	ptd->read(fd, buf, testString1.length());
+	ptd->lseek(0, SEEK_SET);  //seek to beginning of file
+	ptd->read(buf, testString1.length());
 
 	CHECK_TRUE(strncmp((const char *)buf, (const char *)testString1.c_str(), testString1.length()) == 0);
 

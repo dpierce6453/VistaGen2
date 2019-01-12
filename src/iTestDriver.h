@@ -16,15 +16,15 @@ public:
 	iTestDriver();
 	virtual ~iTestDriver();
 
-	virtual int close(int d) = 0;
+	virtual int close(void) = 0;
 
 	virtual int open(const char *path, int flags) = 0;
 
-	virtual size_t write(int d, void *buf, size_t nbytes) = 0;
+	virtual size_t write(void *buf, size_t nbytes) = 0;
 
-	virtual off_t lseek(int d, off_t offset, int base) = 0;
+	virtual off_t lseek(off_t offset, int base) = 0;
 
-	virtual size_t read(int d, void *buf, size_t nbytes) = 0;
+	virtual size_t read(void *buf, size_t nbytes) = 0;
 
 };
 #endif /* ITESTDRIVER_H_ */

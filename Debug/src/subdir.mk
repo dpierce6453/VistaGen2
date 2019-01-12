@@ -10,8 +10,8 @@ CPP_SRCS += \
 ../src/ActionZoneAndChannelChange_test.cpp \
 ../src/LoadCodePlug.cpp \
 ../src/LoadCodePlug_test.cpp \
-../src/RAMBufferDriver.cpp \
-../src/RAMBufferDriver_test.cpp \
+../src/RAMBuffer.cpp \
+../src/RAMBuffer_test.cpp \
 ../src/TestCase.cpp \
 ../src/TestCase_test.cpp \
 ../src/TestCreatorVistaAPX8000.cpp \
@@ -30,8 +30,8 @@ OBJS += \
 ./src/ActionZoneAndChannelChange_test.o \
 ./src/LoadCodePlug.o \
 ./src/LoadCodePlug_test.o \
-./src/RAMBufferDriver.o \
-./src/RAMBufferDriver_test.o \
+./src/RAMBuffer.o \
+./src/RAMBuffer_test.o \
 ./src/TestCase.o \
 ./src/TestCase_test.o \
 ./src/TestCreatorVistaAPX8000.o \
@@ -50,8 +50,8 @@ CPP_DEPS += \
 ./src/ActionZoneAndChannelChange_test.d \
 ./src/LoadCodePlug.d \
 ./src/LoadCodePlug_test.d \
-./src/RAMBufferDriver.d \
-./src/RAMBufferDriver_test.d \
+./src/RAMBuffer.d \
+./src/RAMBuffer_test.d \
 ./src/TestCase.d \
 ./src/TestCase_test.d \
 ./src/TestCreatorVistaAPX8000.d \

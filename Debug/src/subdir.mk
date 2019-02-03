@@ -8,6 +8,8 @@ CPP_SRCS += \
 ../src/ActionSendXCMPMessageRequest_test.cpp \
 ../src/ActionZoneAndChannelChange.cpp \
 ../src/ActionZoneAndChannelChange_test.cpp \
+../src/Cpputilities.cpp \
+../src/Cpputilities_test.cpp \
 ../src/LoadCodePlug.cpp \
 ../src/LoadCodePlug_test.cpp \
 ../src/RAMBuffer.cpp \
@@ -28,6 +30,8 @@ OBJS += \
 ./src/ActionSendXCMPMessageRequest_test.o \
 ./src/ActionZoneAndChannelChange.o \
 ./src/ActionZoneAndChannelChange_test.o \
+./src/Cpputilities.o \
+./src/Cpputilities_test.o \
 ./src/LoadCodePlug.o \
 ./src/LoadCodePlug_test.o \
 ./src/RAMBuffer.o \
@@ -48,6 +52,8 @@ CPP_DEPS += \
 ./src/ActionSendXCMPMessageRequest_test.d \
 ./src/ActionZoneAndChannelChange.d \
 ./src/ActionZoneAndChannelChange_test.d \
+./src/Cpputilities.d \
+./src/Cpputilities_test.d \
 ./src/LoadCodePlug.d \
 ./src/LoadCodePlug_test.d \
 ./src/RAMBuffer.d \

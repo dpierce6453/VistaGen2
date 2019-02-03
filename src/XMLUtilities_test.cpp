@@ -14,6 +14,7 @@ using namespace std;
 
 #include "XMLUtilities.h"
 #include "RAMBuffer.h"
+#include "Cpputilities.h"
 
 
 extern const string testString3;
@@ -59,8 +60,10 @@ void CheckIndent(string str, size_t position)
 	pitd->lseek(position, SEEK_SET);
 	pitd->read(buf, str.length());
 
-	CHECK_TRUE(strncmp( (const char *)buf , (const char *)(str.c_str()) , str.length()) == 0);
+	Cpputilities *pCppu = new Cpputilities();
+	CHECK_TRUE(pCppu->strncmp_equal(buf, str));
 
+	delete pCppu;
 	delete [] buf;
 }
 

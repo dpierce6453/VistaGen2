@@ -12,19 +12,23 @@ using namespace std;
 #include <CppUTest/TestHarness.h>
 
 #include "RAMBuffer.h"
+#include "Cpputilities.h"
 
 extern const string testString6;
+
+Cpputilities *pCppu;
 
 TEST_GROUP(RAMBufferDriverTests)
 {
 	void setup()
 	{
+		pCppu = new Cpputilities();
 
 	}
 
 	void teardown()
 	{
-
+		delete pCppu;
 	}
 };
 
@@ -55,7 +59,7 @@ TEST(RAMBufferDriverTests, OpenTest)
 
 	rb->read(buf, testString6.length());
 
-	CHECK_TRUE(strncmp((const char *)buf, (const char *)testString6.c_str(), testString6.length()) == 0);
+	CHECK_TRUE(pCppu->strncmp_equal(buf, testString6));
 
 	rb->close();
 	delete rb;
@@ -77,7 +81,8 @@ TEST(RAMBufferDriverTests, TwoStringTest)
 	rb->read(buf, (testString6.length() * 2));
 	string check = testString6 + testString6;
 
-	CHECK_TRUE(strncmp((const char *)buf, (const char *)check.c_str(), check.length()) == 0);
+
+	CHECK_TRUE(pCppu->strncmp_equal(buf, check));
 
 	rb->close();
 	delete rb;
@@ -119,13 +124,13 @@ TEST(RAMBufferDriverTests, FullBufferTest)
 		memset(buf, '.', fullbufferteststring.length());
 		numbytes = rb->read(buf, fullbufferteststring.length());
 		CHECK_TRUE(numbytes == fullbufferteststring.length());
-		CHECK_TRUE(strncmp((const char *)buf, (const char *)fullbufferteststring.c_str(), fullbufferteststring.length()) == 0);
+		CHECK_TRUE(pCppu->strncmp_equal(buf, fullbufferteststring));
 	}
 	// read the last partial buffer
 	memset(buf, '.', fullbufferteststring.length());
 	numbytes = rb->read(buf, fullbufferteststring.length());
 	CHECK_TRUE(numbytes == nRamBufferSize % fullbufferteststring.length());
-	CHECK_TRUE(strncmp((const char *)buf, (const char *)fullbufferteststring.c_str(), nRamBufferSize % fullbufferteststring.length()) == 0);
+	CHECK_TRUE(pCppu->strncmp_equal(buf, fullbufferteststring, nRamBufferSize % fullbufferteststring.length()));
 
 	// finally make sure a write after this gets a 0
 	numbytes = rb->read(buf, fullbufferteststring.length());
@@ -151,7 +156,7 @@ TEST(RAMBufferDriverTests, lseekTest1)
 
 	numberofbytes = rb->read(buf, testString6.length());
 
-	CHECK_TRUE(strncmp((const char *)buf, (const char *)(check.c_str()+100), numberofbytes) == 0);
+	CHECK_TRUE(pCppu->strncmp_equal(buf, (const char *)(check.c_str()+100), numberofbytes));
 
 	rb->close();
 	delete rb;
@@ -171,7 +176,7 @@ TEST(RAMBufferDriverTests, lseekTest2)
 
 	numberofbytes = rb->read(buf, testString6.length());
 
-	CHECK_TRUE(strncmp((const char *)buf, (const char *)(testString6.c_str()+10), numberofbytes) == 0);
+	CHECK_TRUE(pCppu->strncmp_equal(buf, (const char *)(testString6.c_str()+10), numberofbytes));
 
 	rb->close();
 	delete rb;

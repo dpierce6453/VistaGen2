@@ -17,7 +17,11 @@ public:
 	Cpputilities();
 	virtual ~Cpputilities();
 
+
 	int strncmp_equal(const char *buf, string str);
+	int strncmp_equal(const char *buf, string str, size_t num);
+	int strncmp_equal(const char *buf, const char *buf1, size_t num);
+
 };
 
 #endif /* CPPUTILITIES_H_ */

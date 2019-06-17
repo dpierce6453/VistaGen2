@@ -34,3 +34,6 @@
 #prefences and settings
 *.prefs
 
+#subline
+*.sublime-workspace
+
